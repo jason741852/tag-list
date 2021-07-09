@@ -1,0 +1,16 @@
+export const TAG_DATA = [
+  'horror',
+  'fantasy',
+  'comedy',
+  'drama',
+  'crime',
+  'documentary',
+  'funny',
+  'real story',
+  'foreign',
+  'mystery',
+  'teenager',
+  'violent',
+  'dark',
+  'emotional',
+];

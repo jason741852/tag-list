@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useReducer } from 'react';
 
-import { ITEM_DATA } from '../../itemData';
+import { ITEM_DATA } from '../../data/itemData';
 import { ListItem } from './components/ListItem';
 import { ListToolbar } from './components/ListToolbar';
 import actionTypes from './state/actionTypes';
@@ -74,7 +74,13 @@ export const TagListPage = () => {
       onGenerateRandomTags,
       onResetTags,
     }),
-    [onAddTag, onRemoveTag, onSearchTags],
+    [
+      onAddTag,
+      onRemoveTag,
+      onSearchTags,
+      onGenerateRandomTags,
+      onResetTags,
+    ],
   );
 
   return (

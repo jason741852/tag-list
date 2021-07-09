@@ -6,7 +6,8 @@ import tagListPageContext from '../tagListPageContext';
 const placeholderText = `Use ',' to search multiple tags`;
 
 export const ListToolbar = () => {
-  const { onSearchTags } = useContext(tagListPageContext);
+  const { onSearchTags, onGenerateRandomTags, onResetTags } =
+    useContext(tagListPageContext);
 
   const [searchValue, setSearchValue] = useState('');
 
@@ -21,6 +22,11 @@ export const ListToolbar = () => {
 
   return (
     <div className={'list-toolbar'}>
+      <Button
+        label="Populate random tags"
+        onClick={onGenerateRandomTags}
+      />
+      <Button label="Reset tags" onClick={onResetTags} />
       <SearchField
         value={searchValue}
         placeholder={placeholderText}

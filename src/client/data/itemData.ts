@@ -1,4 +1,4 @@
-import { ItemOriginal } from './types';
+import { ItemOriginal } from '../types';
 
 export const ITEM_DATA: ItemOriginal[] = [
   {

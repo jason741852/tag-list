@@ -1,4 +1,7 @@
 import { produce } from 'immer';
+import { ITEM_DATA } from '../../../data/itemData';
+import { TAG_DATA } from '../../../data/tagData';
+import { randomChoose } from '../../../shared/utils/randomChoose';
 
 import { ItemOriginal, Item } from '../../../types';
 import actionTypes from './actionTypes';
@@ -6,7 +9,7 @@ import { ListState } from './types';
 
 const convertListDataToDictionary = (
   movieData: ItemOriginal[],
-  tagsByItemId: Record<number, string[]>,
+  tagsByItemId: Record<number, string[]> = {},
 ): Record<number, Item> => {
   return movieData.reduce((acc, { id, name, created_at }) => {
     acc[id] = {
@@ -24,7 +27,7 @@ export const getInitialState = ({
   tagsByItemId,
 }: {
   data: ItemOriginal[];
-  tagsByItemId: Record<number, string[]>;
+  tagsByItemId?: Record<number, string[]>;
 }): ListState => {
   const dataByIds = convertListDataToDictionary(data, tagsByItemId);
   const allIds = data.map(({ id }) => id);
@@ -82,6 +85,22 @@ export const reducer = produce(
 
         break;
       }
+      case actionTypes.generateRandomTags: {
+        const state = getInitialState({ data: ITEM_DATA });
+        state.listItems.allIds.forEach((id) => {
+          const tags = randomChoose(TAG_DATA);
+          state.listItems.byIds[id].tags.push(...tags);
+        });
+        draft = state;
+
+        break;
+      }
+
+      case actionTypes.resetTags: {
+        draft = getInitialState({ data: ITEM_DATA });
+      }
     }
+
+    return draft;
   },
 );
