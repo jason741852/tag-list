@@ -1,4 +1,6 @@
-export const ITEM_DATA = [
+import { ItemOriginal } from './types';
+
+export const ITEM_DATA: ItemOriginal[] = [
   {
     id: 1,
     name: 'Volcano High (Whasango)',
