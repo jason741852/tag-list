@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
+import { MAX_TAGS_COUNT } from '../../../constants';
 import { Button } from '../../../shared/components/button';
 import { Tag } from '../../../shared/components/tag';
 import { TextField } from '../../../shared/components/textField';
@@ -64,11 +65,13 @@ export const ListItem = ({
         ))}
       </div>
       <div className={'list-item--add-tag-field'}>
-        <TextField
-          value={newTagName}
-          onChange={setNewTagName}
-          hasError={!isNameValid}
-        />
+        {tags.length < MAX_TAGS_COUNT && (
+          <TextField
+            value={newTagName}
+            onChange={setNewTagName}
+            hasError={!isNameValid}
+          />
+        )}
       </div>
       <div className={'list-item--add-tag-button'}>
         <Button label={'Add Tag'} onClick={handleAddTag} />

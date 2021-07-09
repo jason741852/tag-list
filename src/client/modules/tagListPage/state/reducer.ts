@@ -1,4 +1,5 @@
 import { produce } from 'immer';
+import { MAX_TAGS_COUNT } from '../../../constants';
 import { ITEM_DATA } from '../../../data/itemData';
 import { TAG_DATA } from '../../../data/tagData';
 import { randomChoose } from '../../../shared/utils/randomChoose';
@@ -50,7 +51,10 @@ export const reducer = produce(
         const existingTags = draft.listItems.byIds[itemId].tags;
 
         // Don't add if the tag is in this item already
-        if (!!existingTags.find((value) => value === tag)) {
+        if (
+          existingTags.length >= MAX_TAGS_COUNT ||
+          existingTags.find((value) => value === tag)
+        ) {
           return;
         }
         existingTags.push(tag);
@@ -91,7 +95,8 @@ export const reducer = produce(
       case actionTypes.generateRandomTags: {
         const state = getInitialState({ data: ITEM_DATA });
         state.listItems.allIds.forEach((id) => {
-          const tags = randomChoose(TAG_DATA);
+          const count = Math.floor(Math.random() * 5);
+          const tags = randomChoose(TAG_DATA, count);
           state.listItems.byIds[id].tags.push(...tags);
         });
         draft = state;
