@@ -1,6 +1,23 @@
+.list-item--title {
+  flex-basis: 400px;
+}
+
+.list-item--tags {
+  flex-basis: 400px;
+  margin-left: auto;
+}
+
+.list-item--add-tag-field {
+  flex-basis: 200px;
+}
+
+.list-item--add-tag-button {
+  flex-basis: 50;
+}
+
 .list-item {
   background: #e8e8e8;
-  margin: 12px 24px;
+  margin-bottom: 12px;
   padding: 12px;
   display: flex;
   flex-direction: row;
@@ -17,6 +34,7 @@
 }
 
 .list-item--tag {
+  display: inline-flex;
   margin-right: 4px;
 }
 
