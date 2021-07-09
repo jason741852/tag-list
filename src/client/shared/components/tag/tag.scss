@@ -1,0 +1,22 @@
+.tag {
+  display: inline-flex;
+  height: 24px;
+  align-content: center;
+  width: fit-content;
+  background: #3e70ae;
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+.tag__label {
+  font-size: 16px;
+  color: white;
+  margin-right: 4px;
+}
+
+.tag__delete-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
