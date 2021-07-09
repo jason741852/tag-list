@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { SearchField } from '../../../shared/components/searchField';
 import { useDebounce } from '../../../shared/utils/useDebounce';
 import { FilterType } from '../../../types';
+import { formatSearchValue } from '../../utils/formatSearchValue';
 import tagListPageContext from '../tagListPageContext';
 
 const placeholderText = `Use ',' as OR filter; use '+' as AND`;
@@ -30,10 +31,7 @@ export const ListSearch = () => {
   useEffect(() => {
     const filterType = getFilterType(debouncedSearchValue);
 
-    const tags = debouncedSearchValue
-      .split(filterType === FilterType.And ? '+' : ',')
-      .map((value) => value.trim())
-      .filter((value) => Boolean(value));
+    const tags = formatSearchValue(debouncedSearchValue, filterType);
     onSearchTags(tags, filterType);
   }, [debouncedSearchValue, onSearchTags]);
 
