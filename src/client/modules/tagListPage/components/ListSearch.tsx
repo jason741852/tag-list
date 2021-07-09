@@ -22,7 +22,7 @@ export const ListSearch = () => {
       .split(',')
       .filter((value) => Boolean(value));
     onSearchTags(tags);
-  }, [debouncedSearchValue]);
+  }, [debouncedSearchValue, onSearchTags]);
 
   const handleSearchTags = (value: string) => {
     setSearchValue(value);

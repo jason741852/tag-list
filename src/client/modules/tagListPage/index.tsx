@@ -1,6 +1,15 @@
-import React, { useCallback, useMemo, useReducer } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+} from 'react';
 
 import { ITEM_DATA } from '../../data/itemData';
+import {
+  getTagsFromLocalStorage,
+  saveTagsToLocalStorage,
+} from '../../shared/utils/localStorage';
 import { ListItem } from './components/ListItem';
 import { ListToolbar } from './components/ListToolbar';
 import actionTypes from './state/actionTypes';
@@ -11,10 +20,19 @@ import ListPageContext from './tagListPageContext';
 export const TagListPage = () => {
   const [state, dispatch] = useReducer(
     reducer,
-    getInitialState({ data: ITEM_DATA, tagsByItemId: {} }),
+    { data: ITEM_DATA, tagsByItemId: getTagsFromLocalStorage() },
+    getInitialState,
   );
 
   const items = useMemo(() => selectors.getItems(state), [state]);
+  const tagsByItemId = useMemo(
+    () => selectors.getTagsByItemIds(state),
+    [state],
+  );
+
+  useEffect(() => {
+    saveTagsToLocalStorage(tagsByItemId);
+  }, [tagsByItemId]);
 
   const onAddTag = useCallback(
     (tag: string, itemId: number) => {

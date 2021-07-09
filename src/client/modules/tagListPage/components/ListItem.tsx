@@ -46,12 +46,8 @@ export const ListItem = ({
       </div>
       <div className={'list-item--tags'}>
         {tags.map((tag) => (
-          <div className={'list-item--tag'}>
-            <Tag
-              key={tag}
-              label={tag}
-              onDelete={() => handleRemoveTag(tag)}
-            />
+          <div key={tag} className={'list-item--tag'}>
+            <Tag label={tag} onDelete={() => handleRemoveTag(tag)} />
           </div>
         ))}
       </div>
