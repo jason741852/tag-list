@@ -3,7 +3,7 @@ import { ITEM_DATA } from '../../../data/itemData';
 import { TAG_DATA } from '../../../data/tagData';
 import { randomChoose } from '../../../shared/utils/randomChoose';
 
-import { ItemOriginal, Item } from '../../../types';
+import { ItemOriginal, Item, FilterType } from '../../../types';
 import actionTypes from './actionTypes';
 import { ListState } from './types';
 
@@ -66,8 +66,9 @@ export const reducer = produce(
         break;
       }
       case actionTypes.searchTag: {
-        const { tags } = payload as {
+        const { tags, filterType } = payload as {
           tags: string[];
+          filterType: FilterType;
         };
 
         // reset if nothing to search
@@ -80,7 +81,9 @@ export const reducer = produce(
         draft.listItems.filteredIds = allIds.filter((id) => {
           const { tags: itemTags } = byIds[id];
 
-          return tags.some((tag) => itemTags.includes(tag));
+          return filterType === FilterType.Or
+            ? tags.some((tag) => itemTags.includes(tag))
+            : tags.every((tag) => itemTags.includes(tag));
         });
 
         break;

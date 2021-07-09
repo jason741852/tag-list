@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
 import { Button } from '../../../shared/components/button';
 import { Tag } from '../../../shared/components/tag';
 import { TextField } from '../../../shared/components/textField';
@@ -13,6 +14,12 @@ type ListItemProps = {
   tags: string[];
 };
 
+const invalidRegex = new RegExp('[+,]');
+
+const validateTagName = (value: string) => {
+  return !invalidRegex.test(value);
+};
+
 export const ListItem = ({
   id,
   createdAt,
@@ -21,9 +28,14 @@ export const ListItem = ({
 }: ListItemProps) => {
   const { onAddTag, onRemoveTag } = useContext(tagListPageContext);
   const [newTagName, setNewTagName] = useState<string>('');
+  const [isNameValid, setIsNameValid] = useState(true);
+
+  useEffect(() => {
+    setIsNameValid(validateTagName(newTagName));
+  }, [newTagName]);
 
   const handleAddTag = () => {
-    if (!newTagName) {
+    if (!newTagName || !isNameValid) {
       return;
     }
 
@@ -52,7 +64,11 @@ export const ListItem = ({
         ))}
       </div>
       <div className={'list-item--add-tag-field'}>
-        <TextField value={newTagName} onChange={setNewTagName} />
+        <TextField
+          value={newTagName}
+          onChange={setNewTagName}
+          hasError={!isNameValid}
+        />
       </div>
       <div className={'list-item--add-tag-button'}>
         <Button label={'Add Tag'} onClick={handleAddTag} />

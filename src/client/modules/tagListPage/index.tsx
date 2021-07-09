@@ -10,6 +10,7 @@ import {
   getTagsFromLocalStorage,
   saveTagsToLocalStorage,
 } from '../../shared/utils/localStorage';
+import { FilterType } from '../../types';
 import { ListItem } from './components/ListItem';
 import { ListToolbar } from './components/ListToolbar';
 import actionTypes from './state/actionTypes';
@@ -61,11 +62,12 @@ export const TagListPage = () => {
   );
 
   const onSearchTags = useCallback(
-    (tags: string[]) => {
+    (tags: string[], filterType: FilterType) => {
       dispatch({
         type: actionTypes.searchTag,
         payload: {
           tags,
+          filterType,
         },
       });
     },

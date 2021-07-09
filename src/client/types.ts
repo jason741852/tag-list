@@ -15,3 +15,8 @@ export type ItemTag = {
   id: string;
   label: string;
 };
+
+export enum FilterType {
+  And = 'And',
+  Or = 'Or',
+}
