@@ -85,6 +85,8 @@ export const reducer = produce(
         draft.listItems.filteredIds = allIds.filter((id) => {
           const { tags: itemTags } = byIds[id];
 
+          // if OR filter: return true if one of the tags is in the item
+          // if AND filter: only return true if every tag is in the item
           return filterType === FilterType.Or
             ? tags.some((tag) => itemTags.includes(tag))
             : tags.every((tag) => itemTags.includes(tag));
@@ -95,7 +97,10 @@ export const reducer = produce(
       case actionTypes.generateRandomTags: {
         const state = getInitialState({ data: ITEM_DATA });
         state.listItems.allIds.forEach((id) => {
-          const count = Math.floor(Math.random() * 5);
+          // get random number between 0 to 5
+          const count = Math.floor(
+            Math.random() * (MAX_TAGS_COUNT + 1),
+          );
           const tags = randomChoose(TAG_DATA, count);
           state.listItems.byIds[id].tags.push(...tags);
         });

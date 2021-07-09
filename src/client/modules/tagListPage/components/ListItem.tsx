@@ -4,6 +4,7 @@ import { MAX_TAGS_COUNT } from '../../../constants';
 import { Button } from '../../../shared/components/button';
 import { Tag } from '../../../shared/components/tag';
 import { TextField } from '../../../shared/components/textField';
+import { validateTagName } from '../../utils/validateTagName';
 import tagListPageContext from '../tagListPageContext';
 
 import './ListItem.scss';
@@ -13,12 +14,6 @@ type ListItemProps = {
   name: string;
   createdAt: string;
   tags: string[];
-};
-
-const invalidRegex = new RegExp('[+,]');
-
-const validateTagName = (value: string) => {
-  return !invalidRegex.test(value);
 };
 
 export const ListItem = ({
