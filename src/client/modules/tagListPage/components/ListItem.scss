@@ -1,0 +1,25 @@
+.list-item {
+  background: #e8e8e8;
+  margin: 12px 24px;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.list-item--name {
+  font-weight: 600;
+}
+
+.list-item--add-tag-field {
+  width: 200px;
+  margin-right: 4px;
+}
+
+.list-item--tag {
+  margin-right: 4px;
+}
+
+.list-item--tags {
+  margin-right: 4px;
+}
